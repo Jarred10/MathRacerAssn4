@@ -1,0 +1,44 @@
+<h1>Race Page</h1>
+<% if authenticate_user %>
+	<% if in_game %>	
+		<% if in_full_game %>
+			<div class="game"> <%= render partial: 'show' %> </div>
+			
+			
+			<!--ajax call-->
+			
+			<%= form_tag(:action => 'submit_answer') do %>
+			
+				<%= @f %> * <%= @s %>
+				<%= hidden_field_tag :f, @f %>
+				<%= hidden_field_tag :s, @s %>
+				<p>Answer:</br> <%= text_field_tag :answer %></p> 
+				<%= submit_tag("Submit") %>
+			<% end %>
+						
+			<%= button_to 'Leave Game', :action => :leave, :id => session[:game_id] %> </p>
+		<% else %>
+		Current Game: <%= @current_game.gameid %>
+		<%= button_to 'Leave Game', :action => :leave, :id => session[:game_id] %>
+		<% end %>
+		
+	<% else %>
+		<p>Open games:</p>
+		<% @opengames.each do |game| %>
+			<p>Game: <%= game.gameid %> User1: <%= game.user1 %> User2: <%= game.user2%>
+			<%= button_to 'Join Game', :action => :join, :id => game.id %> </p>
+			
+			
+			
+		<%end%>
+		
+<%= link_to 'New Game', new_game_path %>  | 
+	<% end %>
+<% else %>
+	<P>Please log in to play.</P>
+<%end%>
+<%= link_to 'Back', pages_path %>
+<script>
+document.getElementById('answer').focus();
+</script>
+

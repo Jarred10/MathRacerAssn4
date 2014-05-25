@@ -1,0 +1,20 @@
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Wins:</strong>
+  <%= @user.wins %>
+</p>
+
+<%if authenticate_user %>
+	<%= link_to 'Edit', edit_user_path %>
+<% end %>
+
+<%= link_to 'Back', users_path %>

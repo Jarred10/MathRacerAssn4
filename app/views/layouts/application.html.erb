@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+		<title>Math Racer</title>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		<%= csrf_meta_tags %>
+
+    </head>
+    <body onload="getPic()">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="header-container">
+            <header class="wrapper clearfix">
+				<div id="holder"></div> 
+                <h1><span class="titlecolor"><%= link_to 'Math Racer', pages_path, :class=>"title" %></span></h1>
+				<nav>
+                    <ul>
+						<li><%= link_to 'Users', users_path %></li>
+						<li><%= link_to 'Games', games_path %></li>
+						<% if logged_out %>
+							<li><%= link_to 'Login', controller: "users", action: "login", :class=>"title" %></li>
+							<li><%= link_to 'Register', controller: "users", action: "new"%></li>
+						<% else %>
+							<li><%= link_to 'Profile', edit_user_path(session[:user_id]) %></li>
+							<li><%= link_to 'Play', games_path %></li>
+							<li><%= link_to 'Logout', controller: "users", action: "logout" %></li>
+						<% end %>
+
+                    </ul>
+                </nav>
+            </header>
+        </div>
+		<div class="main-container">
+        <div class="main wrapper clearfix">
+		<% flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, class: name %>
+		<% end -%>
+		<%= yield %>
+		
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+
+        <div class="footer-container">
+            <footer class="wrapper">
+                <h3>Brought to you by Red Hats</h3>
+            </footer>
+        </div>
+    </body>
+	
+	<script>
+		var holder = document.getElementById("holder"),
+		state = document.getElementById("status");
+			 
+		holder.ondragover = function () { return false; };
+		holder.ondragend = function () { return false; };
+		holder.ondrop = function (e) {
+			e.preventDefault();
+
+			var file = e.dataTransfer.files[0],
+			reader = new FileReader();
+				
+			reader.onload = function (event) {
+				if(typeof(Storage)!=="undefined"){
+					localStorage.pic = "url(" + event.target.result + ")";
+					holder.style.background = localStorage.pic;
+					holder.style.backgroundRepeat="no-repeat";
+					holder.style.backgroundSize="100%";
+				}
+			};
+				
+			reader.readAsDataURL(file);
+
+			return false;
+		};
+			
+		function getPic() {
+			if(typeof(Storage)!=="undefined"){
+				holder.style.background = localStorage.pic;
+				holder.style.backgroundRepeat="no-repeat";
+				holder.style.backgroundSize="100%";
+			}
+		}
+	</script>
+		
+</html>
