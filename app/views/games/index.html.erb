@@ -39,6 +39,7 @@
 <%end%>
 <%= link_to 'Back', pages_path %>
 <script>
-document.getElementById('answer').focus();
+var answer_box = document.getElementById('answer');
+if(answer_box) answer_box.focus();
 </script>
 
