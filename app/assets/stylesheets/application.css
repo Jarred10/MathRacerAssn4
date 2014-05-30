@@ -40,24 +40,22 @@
 
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
-html,
-button,
-input,
-select,
-textarea {
+html, button, input, select, textarea {
     color: #222;
 }
 
 .title {
     color: white;
-    text-shadow: 2px 2px black;
-	
+    text-shadow: 1px 2px black;
+    text-decoration: none;
+    font-size: 40px;
 }
 
 html {
     font-size: 1em;
     line-height: 1.4;
 }
+
 hr {
     display: block;
     height: 1px;
@@ -85,7 +83,9 @@ textarea {
 }
 
 h3{
-    font-size: 25px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 22px;
 	font-weight:bold;
 }
 
@@ -102,7 +102,7 @@ h3{
    ========================================================================== */
 
 body {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .wrapper {
@@ -117,7 +117,7 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid #AED8E3;
+    border-bottom: 25px solid #AED8E3;
 	border-radius: 8px;
 }
 
@@ -175,7 +175,7 @@ nav a:hover {
 }
 
 .main article h1 {
-	font-family: 'Open Sans Condensed', sans-serif;
+	font-family: 'Open Sans', sans-serif;
     font-size: 2em;
 }
 
