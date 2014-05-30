@@ -48,7 +48,7 @@ html, button, input, select, textarea {
     color: white;
     text-shadow: 1px 2px black;
     text-decoration: none;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 html {
@@ -133,6 +133,14 @@ body {
     background: #72B5C8;
 }
 
+p, ol, ul, td, li, .field, .field_with_errors {
+  margin: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+  line-height: 18px;
+  text-align: justify;
+}
+
 /* ==============
     MOBILE: Menu
    ============== */
@@ -151,6 +159,8 @@ nav a {
     text-align: center;
     text-decoration: none;
     font-weight: bold;
+
+    font-size: 25px;
 
     color: white;
     background: #AED8E3;
@@ -212,6 +222,7 @@ nav a:hover {
    ==================== */
 
     nav a {
+        font-size: 16px;
         float: left;
         width: 17%;
         margin: 0 1.7%;
@@ -235,10 +246,6 @@ nav a:hover {
 /* ========================
     INTERMEDIATE: IE Fixes
    ======================== */
-
-    nav ul li {
-        display: inline;
-    }
 
     .oldie nav a {
         margin: 0 0.7%;
@@ -270,7 +277,7 @@ nav a:hover {
 
     nav {
         float: right;
-        width: 68%;
+        width: 66%;
     }
 
 /* ============
@@ -295,7 +302,7 @@ nav a:hover {
    =============== */
 
     .wrapper {
-        width: 1083px; /* 1140px - 5% for margins */
+        width: 1040px; /* 1140px - 10% for margins */
         margin: 0 auto;
     }
 }

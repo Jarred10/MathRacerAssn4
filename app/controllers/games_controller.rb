@@ -45,10 +45,10 @@ class GamesController < ApplicationController
     # Check if game has been saved then assign the game id to the session id	
     respond_to do |format|
       if @game.save
-		session[:game_id] = @game.id
-		
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-        format.json { render :show, status: :created, location: @game }
+		    session[:game_id] = @game.id
+		   flash[:valid] = 'Game was successfully created.'
+        format.html { redirect_to games_path }
+        format.json { render :show, status: :created, location: games_path }
       else
         format.html { render :new }
         format.json { render json: @game.errors, status: :unprocessable_entity }
@@ -61,7 +61,7 @@ class GamesController < ApplicationController
   # Update game and display the message to the user
   def update
     respond_to do |format|
-      if @game.update
+      if @game.update(game_params)
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
         format.json { render :show, status: :ok, location: @game }
       else
@@ -85,77 +85,87 @@ class GamesController < ApplicationController
   
  # This method when the user join a game, check is it user1 or user2. If no user then assign each user id to a session
   def join
-	if(@game.user1 == nil)
-    session[:game_id] = @game.id
-    @game.user1 = @current_user.username
-    @game.save
-    @current_game = @game
-	elsif(@game.user2 == nil)
-	
-    session[:game_id] = @game.id
-    @game.user2 = @current_user.username
-    @game.save
-    @current_game = @game
-	else
-	flash[:invalid] = 'Game full!'		# Display an error message if the game is full (more than 2 users)
-	end
+  	if(@game.user1 == nil)
+      session[:game_id] = @game.id
+      @game.user1 = @current_user.username
+      @game.save
+      @current_game = @game
+  	elsif(@game.user2 == nil)
+  	
+      session[:game_id] = @game.id
+      @game.user2 = @current_user.username
+      @game.save
+      @current_game = @game
+  	else
+  	 flash[:invalid] = 'Game full!'		# Display an error message if the game is full (more than 2 users)
+  	end
     redirect_to games_url			# Redirect the page to game page	
   end
   
-  # When the user leave a game set a session to nil and redirect the page to game page
+  # When the user leaves a game set their gameid session to nil and redirect the page to game page
   def leave
-	@game.destroy
+    @game.destroy
     session[:game_id] = nil
     redirect_to games_url
   end
   
   # This method generate random questions from number 0 to 9
   def generateQuestion
-  @f = rand(10)
-  @s = rand(10)
+  @f = rand(1..12)
+  @s = rand(1..12)
+  @m = ['+', '-', '*'].sample
   end
   
   # This moethod keep track of the user's answers when game reach 10 questions. Display message to the user if they have won the game
   # Incrementing number of times the user win, then save the game
   def submit_answer
-	if(@current_game.user1progress == 10)
-	
-		flash[:valid] = @current_game.user1 + " won!"
-		user1 = User.find_by_username(@current_game.user1)
-		user1.wins = user1.wins + 1
-		user1.save
-		@current_game.destroy
-	elsif (@current_game.user2progress == 10)
-	
-		
-		user2 = User.find_by_username(@current_game.user2)
-		user2.wins = user2.wins + 1
-		user2.save
-		
-		flash[:valid] = user2.username + " won!"
-		@current_game.destroy
-	elsif params[:answer].to_f == params[:f].to_f * params[:s].to_f			# Multiply two numbers and assign it to answer parameter
-		if(@current_user.username == @current_game.user1)
-			@current_game.user1progress = @current_game.user1progress + 1
-		else
-			@current_game.user2progress = @current_game.user2progress + 1
-		end
-		
-		# Save the game and display the message to the user
-		@current_game.save
-		flash[:valid] = "Correct Answer!"
-	
-	else
-	
-		flash[:invalid] = "Incorrect Answer!"
-	
-	end
-	
-		redirect_to games_path			# Redirect the page to the game page
-	
-	
-  
-  
+    if(params[:m] == '+')
+     @correctanswer = params[:f].to_f + params[:s].to_f
+    elsif(params[:m] == '-')
+      @correctanswer = params[:f].to_f - params[:s].to_f
+    else
+      @correctanswer = params[:f].to_f * params[:s].to_f
+    end
+
+    if params[:answer].to_f == @correctanswer     # Multiply two numbers and assign it to answer parameter
+      if(@current_user.username == @current_game.user1)
+        @current_game.user1progress = @current_game.user1progress + 1
+      else
+        @current_game.user2progress = @current_game.user2progress + 1
+      end
+      
+      # Save the game and display the message to the user
+      @current_game.save
+      flash[:valid] = "Correct Answer!"
+    else
+      flash[:invalid] = "Incorrect Answer! " + params[:f] + params[:m] + params[:s] + "= " + @correctanswer.to_s
+    end
+
+    if(@current_game == nil)
+      
+      flash[:invalid] = "You lost."
+
+    elsif(@current_game.user1progress == 10)
+  	
+  		flash[:valid] = @current_game.user1 + " won!"
+  		user1 = User.find_by_username(@current_game.user1)
+  		user1.wins = user1.wins + 1
+  		user1.save
+  		@current_game.destroy
+
+  	elsif (@current_game.user2progress == 10)
+  	
+  		
+  		user2 = User.find_by_username(@current_game.user2)
+  		user2.wins = user2.wins + 1
+  		user2.save
+  		
+  		flash[:valid] = user2.username + " won!"
+  		@current_game.destroy
+    
+    end
+
+    redirect_to games_path
   end
 
   private

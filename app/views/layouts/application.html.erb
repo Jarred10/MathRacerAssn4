@@ -6,7 +6,7 @@
     <head>
 		<title>Math Racer</title>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
 		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 		<%= csrf_meta_tags %>
 
@@ -19,18 +19,18 @@
         <div class="header-container">
             <header class="wrapper clearfix">
 				<div id="holder"></div> 
-                <h1><span class="titlecolor"><%= link_to 'Math Racer', pages_path, :class=>"title" %></span></h1>
+                <h1><span class="titlecolor"><%= link_to 'Math Racer', root_url, :class => "title" %></span></h1>
 				<nav>
                     <ul>
 						<li><%= link_to 'Users', users_path %></li>
 						<li><%= link_to 'Games', games_path %></li>
 						<% if logged_out %>
-							<li><%= link_to 'Login', controller: "users", action: "login" %></li>
-							<li><%= link_to 'Register', controller: "users", action: "new"%></li>
+							<li><%= link_to 'Login', '/login' %></li>
+							<li><%= link_to 'Register', '/register' %></li>
 						<% else %>
 							<li><%= link_to 'Profile', edit_user_path(session[:user_id]) %></li>
 							<li><%= link_to 'Play', games_path %></li>
-							<li><%= link_to 'Logout', controller: "users", action: "logout" %></li>
+							<li><%= link_to 'Logout', logout_users_url %></li>
 						<% end %>
 
                     </ul>

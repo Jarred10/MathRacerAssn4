@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+  @user = User.new(user_params)
 	@user.wins = 0
 
     respond_to do |format|
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @current_user.update(user_params)
         flash[:valid] = 'Update was successful.'
         format.html { redirect_to @user}
         format.json { render :show, status: :ok, location: @user }

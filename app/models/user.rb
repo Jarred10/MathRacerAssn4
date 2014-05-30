@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	# Checks that the two passwords provided match
 	validates_confirmation_of :password
 	# Checks the password is an acceptable length
-	validates_length_of :password, :in => 6..20, :on => :create
+	validates_length_of :password, :in => 6..20
 	
 	# Authenticate a users log in attempt by comparing their username and password against the database
 	def self.authenticate(login_username="", login_password="")

@@ -4,29 +4,28 @@
 		<% if in_full_game %>
 			<div class="game"> <%= render partial: 'show' %> </div>
 			
-			
-			<!--ajax call-->
-			
 			<%= form_tag(:action => 'submit_answer') do %>
 			
-				<%= @f %> * <%= @s %>
+				<p><%= @f %> <%= @m %> <%= @s %></p>
 				<%= hidden_field_tag :f, @f %>
 				<%= hidden_field_tag :s, @s %>
+				<%= hidden_field_tag :m, @m %>
+				<%= @correctanswer %>
 				<p>Answer:</br> <%= text_field_tag :answer %></p> 
-				<%= submit_tag("Submit") %>
+				<p><%= submit_tag("Submit") %></p>
 			<% end %>
 						
-			<%= button_to 'Leave Game', :action => :leave, :id => session[:game_id] %> </p>
 		<% else %>
-		Current Game: <%= @current_game.gameid %>
-		<%= button_to 'Leave Game', :action => :leave, :id => session[:game_id] %>
+		<p>Current Game: <%= @current_game.gameid %></p>
 		<% end %>
+
+		<%= link_to 'Leave Game', {:action => :leave, :controller => "games", :id => session[:game_id]} %> | 
 		
 	<% else %>
 		<p>Open games:</p>
 		<% @opengames.each do |game| %>
-			<p>Game: <%= game.gameid %> User1: <%= game.user1 %> User2: <%= game.user2%>
-			<%= button_to 'Join Game', :action => :join, :id => game.id %> </p>
+			<p>Name: <%= game.gameid %>. User: <%= game.user1 %>. </p>
+			<p><%= link_to 'Join Game', {:action => :join, :id => game.id } %></p>
 			
 			
 			

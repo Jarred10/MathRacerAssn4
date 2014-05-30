@@ -1,29 +1,26 @@
 Rails.application.routes.draw do
-  resources :games
+  resources :games 
 
-  resources :users
+  resources :users do
+    collection do
+      get 'logout'
+    end
+  end
   
   resources :pages
   
-# Maps http requests to the corresponding methods
-  get 'index', :to => 'pages#index'
+# Maps http requests to the corresponding methods  
+  post 'games/submit_answer' => 'games#submit_answer'
 
-  get 'register', :to => 'users#new'
+  get 'games/join/:id' => 'games#join'
 
-  get 'play', :to => 'games#index'
+  get 'register' => 'users#new'
+
+  get 'login' => 'users#login'
   
-  post 'games/submit_answer' => 'games#submit_answer', :as => :submit_answer
-  
-  post 'games/join' => 'games#join', :as => :join
-  
-  post 'games/leave' => 'games#leave', :as => :leave
-  
-  get 'login', :to => 'users#login'
+  get 'games/leave/:id' => 'games#leave'
  
-  post 'login' => 'users#login_attempt', :as => :login_attempt
-  
-  get 'logout' => 'users#logout'
-  
+  post 'users/login' => 'users#login_attempt'  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
