@@ -85,6 +85,7 @@ textarea {
 }
 
 h3{
+    font-size: 25px;
 	font-weight:bold;
 }
 
@@ -105,7 +106,7 @@ body {
 }
 
 .wrapper {
-    width: 90%;
+    width: 95%;
     margin: 0 3%;
 }
 
@@ -117,12 +118,12 @@ body {
 
 .header-container {
     border-bottom: 20px solid #AED8E3;
-	border-radius: 0px 10px 10px 10px;
+	border-radius: 8px;
 }
 
 .footer-container,
 .main aside {
-    border-top: 20px solid #72B5C8;
+    margin: 15px;
 	border-radius: 10px;
 }
 
@@ -180,7 +181,7 @@ nav a:hover {
 
 .main aside {
     color: white;
-    padding: 15px 5% 30px;
+    padding: 10px 2% 20px;
 }
 
 .footer-container footer {
@@ -269,7 +270,7 @@ nav a:hover {
 
     nav {
         float: right;
-        width: 70%;
+        width: 68%;
     }
 
 /* ============
@@ -283,7 +284,7 @@ nav a:hover {
 
     .main aside {
         float: right;
-        width: 28%;
+        width: 45%;
     }
 }
 
@@ -294,7 +295,7 @@ nav a:hover {
    =============== */
 
     .wrapper {
-        width: 1026px; /* 1140px - 10% for margins */
+        width: 1083px; /* 1140px - 5% for margins */
         margin: 0 auto;
     }
 }
