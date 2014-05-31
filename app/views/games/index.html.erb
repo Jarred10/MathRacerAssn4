@@ -24,7 +24,7 @@
 	<% else %>
 		<p>Open games:</p>
 		<% @opengames.each do |game| %>
-			<p>Name: <%= game.gameid %>. User: <%= game.user1 %>. </p>
+			<p>Name: <%= game.gameid %>. Host: <%= link_to game.user1, User.find_by_username(game.user1) %>. </p>
 			<p><%= link_to 'Join Game', {:action => :join, :id => game.id } %></p>
 			
 			
