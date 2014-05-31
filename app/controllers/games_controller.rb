@@ -122,7 +122,26 @@ class GamesController < ApplicationController
     if(@current_game == nil)
       flash[:invalid] = "Game no longer exists. Opponent left."
     else
-       if(@current_game.user1progress == 2)    
+      if(params[:m] == '+')
+       correctanswer = params[:f].to_f + params[:s].to_f
+      elsif(params[:m] == '-')
+       correctanswer = params[:f].to_f - params[:s].to_f 
+      else
+        correctanswer = params[:f].to_f * params[:s].to_f
+      end
+      if params[:answer].to_f == correctanswer     # Multiply two numbers and assign it to answer parameter
+        if(@current_user.username == @current_game.user1)
+          @current_game.user1progress = @current_game.user1progress + 1
+        else
+          @current_game.user2progress = @current_game.user2progress + 1
+        end        
+        # Save the game and display the message to the user
+        @current_game.save
+        flash[:valid] = "Correct Answer!"
+      else
+        flash[:invalid] = "Incorrect Answer! " + params[:f] + params[:m] + params[:s] + "= " + correctanswer.to_s
+      end
+      if(@current_game.user1progress == 10)    
         user1 = User.find_by_username(@current_game.user1)
         user1.wins = user1.wins + 1
         user1.save
@@ -132,7 +151,7 @@ class GamesController < ApplicationController
           flash[:invalid] = "You lost! <a href ='#{url_for user1}'>#{user1.username}</a> won!"
         end
         session[:game_id] = nil
-      elsif (@current_game.user2progress == 2)
+      elsif (@current_game.user2progress == 10)
         
         user2 = User.find_by_username(@current_game.user2)
         user2.wins = user2.wins + 1
@@ -143,28 +162,7 @@ class GamesController < ApplicationController
           flash[:invalid] = "You lost! <a href ='#{url_for user2}'>#{user2.username}</a> won!"
         end
         session[:game_id] = nil
-      else
-        if(params[:m] == '+')
-         correctanswer = params[:f].to_f + params[:s].to_f
-        elsif(params[:m] == '-')
-         correctanswer = params[:f].to_f - params[:s].to_f
-        else
-         correctanswer = params[:f].to_f * params[:s].to_f
-        end
-
-        if params[:answer].to_f == correctanswer     # Multiply two numbers and assign it to answer parameter
-          if(@current_user.username == @current_game.user1)
-            @current_game.user1progress = @current_game.user1progress + 1
-          else
-            @current_game.user2progress = @current_game.user2progress + 1
-          end
-          
-          # Save the game and display the message to the user
-          @current_game.save
-          flash[:valid] = "Correct Answer!"
-        else
-          flash[:invalid] = "Incorrect Answer! " + params[:f] + params[:m] + params[:s] + "= " + correctanswer.to_s
-        end
+      
       end
     end
     redirect_to games_path

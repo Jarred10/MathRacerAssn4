@@ -10,7 +10,7 @@
 
 <p>
   <strong>User1progress:</strong>
-  <%= image_tag "progress" + @current_game.user1progress.to_s %>
+   <progress value= <%= @current_game.user1progress.to_s %> max="10"></progress>
 </p>
 
 <p>
@@ -20,5 +20,5 @@
 
 <p>
   <strong>User2progress:</strong>
-   <%= image_tag "progress" + @current_game.user2progress.to_s %>
+   <progress value= <%= @current_game.user2progress.to_s %> max="10"></progress>
 </p>
