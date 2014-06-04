@@ -1,5 +1,5 @@
+<%# Log in form is a div with username and password fields and a submit button%>
 <div>
-
   <h1>Log in</h1>
   <%= form_tag(:action => 'login_attempt') do %>
    <p>Username:</br> 
@@ -10,4 +10,5 @@
   <% end %>
 </div>
 
+<%# Link to the previous page%>
 <%= link_to 'Back', pages_path %>

@@ -1,23 +1,28 @@
+<%# Show the name of the game %>
 <p>
   <strong>Game name:</strong>
   <%= @current_game.gameid %>
 </p>
 
+<%# Show player 1s name%>
 <p>
   <strong>User1:</strong>
   <%= @current_game.user1 %>
 </p>
 
+<%# Show how far through player 1 is %>
 <p>
   <strong>User1progress:</strong>
    <progress value= <%= @current_game.user1progress.to_s %> max="10"></progress>
 </p>
 
+<%# Show player 2s name%>
 <p>
   <strong>User2:</strong>
   <%= @current_game.user2 %>
 </p>
 
+<%# Show how far through player 2 is %>
 <p>
   <strong>User2progress:</strong>
    <progress value= <%= @current_game.user2progress.to_s %> max="10"></progress>

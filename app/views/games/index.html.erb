@@ -1,9 +1,11 @@
 <h1>Race Page</h1>
+<%# If the user is authenticated and in game and the game is full then show the game%>
 <% if authenticate_user %>
 	<% if in_game %>	
 		<% if in_full_game %>
 			<div class="game"> <%= render partial: 'show' %> </div>
 			
+			<%# Let them submit and answer use hidden fields for the data%>
 			<%= form_tag(:action => 'submit_answer') do %>
 			
 				<p><%= @f %> <%= @m %> <%= @s %></p>
@@ -14,13 +16,16 @@
 				<p>Answer:</br> <%= text_field_tag :answer %></p> 
 				<p><%= submit_tag("Submit") %></p>
 			<% end %>
-						
+		
+		<%# Else just show the current game id%>		
 		<% else %>
 		<p>Current Game: <%= @current_game.gameid %></p>
 		<% end %>
-
+		
+		<%# Link to leave the current game%>
 		<%= link_to 'Leave Game', {:action => :leave, :controller => "games", :id => session[:game_id]} %> | 
 		
+	<%# Else show open games so user can join one%>
 	<% else %>
 		<p>Open games:</p>
 		<% @opengames.each do |game| %>
@@ -31,12 +36,18 @@
 			
 		<%end%>
 		
+<%# Let the user make a new game %>
 <%= link_to 'New Game', new_game_path %>  | 
 	<% end %>
+<%# Else tell the to log in if they wish to play %>
 <% else %>
 	<P>Please log in to play.</P>
 <%end%>
+
+<%# Link to previous page%>
 <%= link_to 'Back', pages_path %>
+
+<%# Script to auto focus %>
 <script>
 var answer_box = document.getElementById('answer');
 if(answer_box) answer_box.focus();

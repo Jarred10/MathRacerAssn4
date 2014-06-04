@@ -1,20 +1,25 @@
+<%# Show users username %>
 <p>
   <strong>Username:</strong>
   <%= @user.username %>
 </p>
 
+<%# Show users email %>
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
 
+<%# Show users total wins%>
 <p>
   <strong>Wins:</strong>
   <%= @user.wins %>
 </p>
 
+<%# If the users is authenticated give them a link to the edit page %>
 <%if authenticate_user %>
 	<%= link_to 'Edit', edit_user_path %> |
 <% end %>
 
+<%# Link to the previous page%>
 <%= link_to 'Back', root_url %>

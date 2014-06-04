@@ -1,18 +1,21 @@
 <h1>New game</h1>
 
+<%# Form to make a new game%>
 <%= form_for(@game) do |f| %>
 
-
+  <%# Let the user specify a game name%>
   <div class="field">
     <p><%= f.label :gameid, 'Game name:' %><br>
     <%= f.text_field :gameid %></p>
   </div>
   
   
+  <%# Submit button %>
   <div class="actions">
     <p><%= f.submit %></p>
   </div>
   
   <% end %>
 
+<%# Link to previous page%>
 <%= link_to 'Back', games_path %>

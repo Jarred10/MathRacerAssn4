@@ -16,10 +16,17 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+		<%# Page header%>
         <div class="header-container">
             <header class="wrapper clearfix">
+			
+			    <%# Div for picture for file drag and drop%>
 				<div id="holder"></div> 
+				
+				<%# Title and make it a link to the index page%>
                 <h1><span class="titlecolor"><%= link_to 'Math Racer', root_url, :class => "title" %></span></h1>
+				
+				<%# Nav with links to various different pages%>
 				<nav>
                     <ul>
 						<li><%= link_to 'Users', users_path %></li>
@@ -39,6 +46,8 @@
         </div>
 		<div class="main-container">
         <div class="main wrapper clearfix">
+		
+		<%# Show any flash messages from actions on previous page%>
 		<% flash.each do |name, msg| -%>
 		<%= content_tag :div, msg.html_safe, class: name %>
 		<% end -%>
@@ -47,6 +56,7 @@
             </div> <!-- #main -->
         </div> <!-- #main-container -->
 
+		<%# Page footer%>
         <div class="footer-container">
             <footer class="wrapper">
                 <h3>Brought to you by Red Hats</h3>
@@ -55,20 +65,27 @@
     </body>
 	
 	<script>
+	    <%# Make the picture method happen on load %>
 		document.onload = getPic();
 		
+		<%# Grab the div to put the image in %>
 		var holder = document.getElementById("holder"),
 		state = document.getElementById("status");
 			 			
+		<%# Deal with drag over and drag end %>				
 		holder.ondragover = function () { return false; };
 		holder.ondragend = function () { return false; };
 
+		<%# On drop%>
 		holder.ondrop = function (e) {
+		    <%# Prevent default action %>
 			e.preventDefault();
 
+			<%# Transfer the file%>
 			var file = e.dataTransfer.files[0],
 			reader = new FileReader();
 				
+		    <%# On loading the file, if web storage exists, store and display the image%>
 			reader.onload = function (event) {
 				if(typeof(Storage)!=="undefined"){
 					localStorage.pic = "url(" + event.target.result + ")";
@@ -83,6 +100,7 @@
 			return false;
 		};
 			
+	    <%# If web storage exists display the image%>
 		function getPic() {
 			if(typeof(Storage)!=="undefined"){
 			var holder = document.getElementById("holder");

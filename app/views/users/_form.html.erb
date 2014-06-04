@@ -1,4 +1,6 @@
+<%# For a particular user %>
 <%= form_for(@user) do |f| %>
+  <%# Show any errors%>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -9,6 +11,8 @@
       </ul>
     </div>
   <% end %>
+  
+  <%# Let them enter their credentials%>
   <p><%= f.label :username %></p>
     <p><%= f.text_field :username %></p>
   <p><%= f.label :password %></p>

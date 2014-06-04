@@ -14,6 +14,11 @@
  *= require_self
  */
 
+ /* ========================================================================
+   Based on Initializr, Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+   /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+   ========================================================================== */
+ 
  /* Valid class to make text appear green*/
 .valid {
 	color: green
@@ -38,12 +43,7 @@
 ::selection {color:white; background:black;}
 ::-moz-selection {color:white; background:black;}
 
-/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
-
-html, button, input, select, textarea {
-    color: #222;
-}
-
+/* Rules for title class */
 .title {
     color: white;
     text-shadow: 1px 2px black;
@@ -51,6 +51,7 @@ html, button, input, select, textarea {
     font-size: 30px;
 }
 
+/* Rules for various tags */
 html {
     font-size: 1em;
     line-height: 1.4;
@@ -96,11 +97,6 @@ h3{
     padding: 0.2em 0;
 }
 
-
-/* ===== Initializr Styles ==================================================
-   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
-   ========================================================================== */
-
 body {
     font-family: 'Open Sans', sans-serif;
 }
@@ -115,6 +111,8 @@ body {
 /* ===================
     ALL: Theme
    =================== */
+   
+/* Rules the modify page theme e.g.:colour, font, text justification */
 
 .header-container {
     border-bottom: 25px solid #AED8E3;
@@ -144,6 +142,8 @@ p, ol, ul, td, li, .field, .field_with_errors {
 /* ==============
     MOBILE: Menu
    ============== */
+   
+/* Layout rules for mobile */
 
 nav ul {
     margin: 0;
@@ -207,19 +207,15 @@ nav a:hover {
     padding-top: 20px;
 }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
 
-/* ==========================================================================
-   Media Queries
-   ========================================================================== */
-
+/* Check if user is on a tablet or other screen suitable for a larger layout */
 @media only screen and (min-width: 480px) {
 
 /* ====================
     INTERMEDIATE: Menu
    ==================== */
+ 
+/* Rules for intermediate e.g.:tablet layout */
 
     nav a {
         font-size: 16px;
@@ -252,11 +248,14 @@ nav a:hover {
     }
 }
 
+/* Check if user is using a screen suitable for a low aspect ration screen e.g.: typical 4.3 or lower resolution monitors */
 @media only screen and (min-width: 768px) {
 
 /* ====================
     WIDE: CSS3 Effects
    ==================== */
+   
+   /* Rules for layout for smaller/low res monitors */
 
     .header-container,
     .main aside {
@@ -295,11 +294,14 @@ nav a:hover {
     }
 }
 
+/* Check if user has a screen suitable for a wider layout e.g.: typical wide screen monitor */
 @media only screen and (min-width: 1140px) {
 
 /* ===============
     Maximal Width
    =============== */
+   
+   /* Rules for a widescreen suitable layout */
 
     .wrapper {
         width: 1040px; /* 1140px - 10% for margins */
